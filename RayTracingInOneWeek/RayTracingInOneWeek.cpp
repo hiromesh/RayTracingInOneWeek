@@ -42,6 +42,7 @@ int main()
 			write_color(std::cout, pixel);
 		}
 	}
+	//
     return 0;
 }
 
