@@ -1,7 +1,9 @@
 #pragma once
 #include <cmath>
 #include<iostream>
-
+#include<memory.h>
+#include<io.h>
+#include<fstream>
 using std::sqrt;
 
 class vec3 {
@@ -93,9 +95,25 @@ inline vec3 unit_vector(vec3 v) {
 	return v / v.length();
 }
 
-inline void write_color(std::ostream &out, color pixel_color) {
+inline void store_to_ppm(std::ostream &out, color pixel_color) {
+	out << static_cast<int>(255.999*pixel_color.x()) << " "
+		<< static_cast<int>(255.999*pixel_color.y()) << " "
+		<< static_cast<int>(255.999*pixel_color.z()) << "\n";
+}
+
+inline void write_ppm_head(std::string path,int img_w,int img_h) {
+	std::fstream out(path);
+	out<<"P3\n" << img_w << " " << img_h << "\n255\n";
+	out.close();
+}
+
+inline void write_color(std::ostream &out, color pixel_color,std::string path="") {
 	//Ð´Ò»¸öÏñËØ
 	out << static_cast<int>(255.999*pixel_color.x()) << " "
 		<< static_cast<int>(255.999*pixel_color.y()) << " "
 		<< static_cast<int>(255.999*pixel_color.z()) << "\n";
+	//if (path == "" || path.size() <= 0)return;
+	//std::ofstream out_(path, std::ios::app);
+	//store_to_ppm(out_, pixel_color);
+	//out_.close();
 }
